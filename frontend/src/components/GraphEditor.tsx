@@ -33,7 +33,7 @@ export default function GraphEditor({
 
     const [numNewNodes, setNumNewNodes] = useState(3);
     const [edgeProb, setEdgeProb] = useState(0.5);
-
+    
 
 
 useEffect(() => {
@@ -360,7 +360,7 @@ useEffect(() => {
                 cursor: 'pointer'
             }}
             >
-            Recompute
+            Compute
             </button>
 
     

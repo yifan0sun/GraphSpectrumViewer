@@ -59,6 +59,7 @@ def get_spectrum(data: GraphData):
             "adjacency": {
                 "eigenvalues": adj_vals,
                 "eigenvectors": adj_vecs,
+                "matrix":A,
             },
             "laplacian": {
                 "eigenvalues": lap_vals,

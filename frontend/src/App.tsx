@@ -14,6 +14,7 @@ const [edges, setEdges] = useState([{ source: 0, target: 1 }, { source: 1, targe
 type SpectrumResult = {
   eigenvalues: number[];
   eigenvectors: number[][];
+  matrix?: number[][];  // Add this optional field
 };
 
 type SpectrumData = {
@@ -30,9 +31,9 @@ const [spectrum, setSpectrum] = useState<SpectrumData | null>(null);
 }
 
   return (
-  <div style={{ height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+  <div style={{ height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column' ,width: '100vw'}}>
     {/* Description bar at top */}
-    <div style={{ padding: '1.5rem', borderBottom: '1px solid #ccc', flexShrink: 0 }}>
+    <div style={{ padding: '1.5rem', borderBottom: '1px solid #ccc', flexShrink: 0  }}>
       <h2>Graph Spectral Visualizer</h2>
 <p>
   This interactive tool helps you explore the structure of graphs using their spectral properties. Add nodes and edges, compute eigenvalues and eigenvectors of the adjacency and Laplacian matrices, and visualize spectral embeddings.
@@ -79,11 +80,13 @@ const [spectrum, setSpectrum] = useState<SpectrumData | null>(null);
         setSpectrum={setSpectrum}
       />
       </div>
-      <RightPanel
-      nodes={nodes}
-      edges={edges}
-      spectrum={spectrum}
-    />
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <RightPanel
+        nodes={nodes}
+        edges={edges}
+        spectrum={spectrum}
+      />
+      </div>
     </div>
 
  

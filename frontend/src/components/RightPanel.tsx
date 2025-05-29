@@ -42,10 +42,13 @@ export default function RightPanel({
 
   const xCoords = eigenvectors.map(row => row[xIndex - 1] ?? 0);
   const yCoords = eigenvectors.map(row => row[yIndex - 1] ?? 0);
+ 
+
 
   return (
     <div style={{
-      width: '40%',
+      width: '95%',
+      height:'100%',
       padding: '1rem',
       borderLeft: '1px solid #ccc',
       display: 'flex',
@@ -93,27 +96,52 @@ export default function RightPanel({
                 mode: 'markers',
                 marker: { size: 6 }
               }]}
-              layout={{ title: `${matrixKey} Eigenvalues`, height: 400 }}
+              layout={{ title: `${matrixKey} Eigenvalues`, height: 400 }}      
+              style={{ width: "100%", height: "100%" }}
             />
           ) : (
-            <p style={{ fontStyle: 'italic' }}>Click compute spectrum to start.</p>
+            <p style={{ fontStyle: 'italic' }}>Click "Compute" to start.</p>
           )
         ) : (
           <div style={{ width: '100%' }}>
             <Plot
-              data={[{
-                x: xCoords,
-                y: yCoords,
-                type: 'scatter',
-                mode: 'markers',
-                marker: { size: 10 }
-              }]}
+              data={[
+                // Edges as lines
+                ...edges.map(edge => {
+                  const src = edge.source;
+                  const tgt = edge.target;
+                  return {
+                    x: [xCoords[src], xCoords[tgt]],
+                    y: [yCoords[src], yCoords[tgt]],
+                    mode: 'lines',
+                    type: 'scatter',
+                    line: { color: 'rgba(150,150,150,0.5)', width: 1 },
+                    hoverinfo: 'none',
+                    showlegend: false,
+                  };
+
+                }),
+                // Nodes as dots
+                {
+                  x: xCoords,
+                  y: yCoords,
+                  mode: 'markers+text',
+                  type: 'scatter',
+                  marker: { size: 10, color: '#1a3fa3' },
+                  text: nodes.map(n => n.id),
+                  textposition: 'top center',
+                  name: 'Nodes',
+                }
+              ]}
               layout={{
-                title: "Embedding Plot",
+                title: "Embedding",
                 height: 400,
-                yaxis: { scaleanchor: 'x', scaleratio: 1 },
-                margin: { t: 40, l: 40, r: 20, b: 40 }
+                xaxis: { title: "X", zeroline: false },
+                yaxis: { title: "Y", zeroline: false },
+                margin: { t: 40, l: 40, r: 20, b: 40 },
+                dragmode: 'zoom', // enables box zoom
               }}
+              style={{ width: "100%", height: "90%" }}
             />
             <div style={{ display: 'flex', flexDirection: 'column', marginTop: '1rem', gap: '0.5rem' }}>
               <label>
