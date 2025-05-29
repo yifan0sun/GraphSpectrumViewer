@@ -27,6 +27,8 @@ def read_root():
 
 @app.post("/get_spectrum")
 def get_spectrum(data: GraphData):
+    print("getting spectrum")
+    
     n = len(data.nodes)
     A = np.zeros((n, n))
 
@@ -58,12 +60,13 @@ def get_spectrum(data: GraphData):
     adj_vals, adj_vecs = compute_eigh(A, reverse=True)
     lap_vals, lap_vecs = compute_eigh(L)
     norm_vals, norm_vecs = compute_eigh(L_norm)
-
+    print("ready to output")
+    
     output = {
             "adjacency": {
                 "eigenvalues": adj_vals,
                 "eigenvectors": adj_vecs,
-                "matrix":A,
+                "matrix":A.tolist(),
             },
             "laplacian": {
                 "eigenvalues": lap_vals,
@@ -74,7 +77,7 @@ def get_spectrum(data: GraphData):
                 "eigenvectors": norm_vecs,
             },
         }
-    print(output)
+    
     return output
 
 
