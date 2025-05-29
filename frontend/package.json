@@ -9,6 +9,7 @@
     "build": "vite build --outDir ../docs",
     "preview": "vite preview"
   },
+  "homepage": "https://yifan0sun.github.io/graphviz",
   "dependencies": {
     "plotly.js": "^3.0.1",
     "react": "^19.1.0",
