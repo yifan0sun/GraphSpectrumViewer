@@ -21,6 +21,10 @@ class GraphData(BaseModel):
     nodes: List[int]
     edges: List[List[int]]  # each edge is [source, target]
 
+@app.get("/")
+def read_root():
+    return {"message": "Welcome to the Graph Spectrum API"}
+
 @app.post("/get_spectrum")
 def get_spectrum(data: GraphData):
     n = len(data.nodes)
