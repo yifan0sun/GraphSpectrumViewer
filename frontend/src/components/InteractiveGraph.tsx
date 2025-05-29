@@ -8,7 +8,7 @@ type Props = {
   edges: EdgeType[];
   onNodePositionChange?: (id: number, x: number, y: number) => void;
   onNodeClick?: (id: number) => void;
-    selectedNodeId?: number;
+    selectedNodeIds?: number[];
     onEdgeClick?: (index: number) => void;
 selectedEdgeIndex?: number;
 };
@@ -16,7 +16,7 @@ selectedEdgeIndex?: number;
 
 
 const InteractiveGraph = forwardRef<SVGSVGElement, Props>(function InteractiveGraph(
-{ nodes, edges, onNodePositionChange, onNodeClick, selectedNodeId, onEdgeClick, selectedEdgeIndex },
+{ nodes, edges, onNodePositionChange, onNodeClick, selectedNodeIds, onEdgeClick, selectedEdgeIndex },
 
   ref
 ) {
@@ -110,16 +110,16 @@ const InteractiveGraph = forwardRef<SVGSVGElement, Props>(function InteractiveGr
           <circle
             cx={node.x}
             cy={node.y}
-            r={20}
-            fill={node.id === selectedNodeId ? '#ff6b6b' : 'url(#nodeGradient)'}
+            r={12}
+            fill={selectedNodeIds?.includes(node.id) ? '#ff6b6b' : 'url(#nodeGradient)'}
             stroke="#1a3fa3"
-            strokeWidth={1.5}
+            strokeWidth={1}
           />
           <text
             x={node.x}
             y={node.y + 5}
             textAnchor="middle"
-            fontSize="14px"
+            fontSize="12px"
             fill="#ffffff"
             fontWeight="bold"
             pointerEvents="none"
